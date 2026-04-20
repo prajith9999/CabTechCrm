@@ -1,0 +1,38 @@
+# Node
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+
+# .NET
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Logs and temp
+*.log
+*.tmp
+**/Logs/
+**/logs/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.user
+*.suo
+.vs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project Specific
+**/_verify_build/
+**/.firebase/
+**/.firebaserc.local
