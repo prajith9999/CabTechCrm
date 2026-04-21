@@ -34,11 +34,14 @@ export default function IntegrationsView({ apiBase }) {
       const res = await axios.get(`${API_BASE}/Integration/settings`);
       const data = {};
       res.data.forEach(s => {
-        data[s.KeyName] = s.KeyValue || '';
+        // Handle both camelCase (PG) and PascalCase (MSSQL) key names
+        const key = s.keyName || s.KeyName;
+        const val = s.keyValue || s.KeyValue || '';
+        if (key) data[key] = val;
       });
       setSettings(prev => ({ ...prev, ...data }));
     } catch (error) {
-      console.error('Failed to load settings:', error);
+      console.error('Failed to load settings:', error?.response?.status, error?.response?.data || error.message);
     } finally {
       setSettingsReady(true);
     }
@@ -66,12 +69,20 @@ export default function IntegrationsView({ apiBase }) {
 
     gmailSaveTimer.current = setTimeout(async () => {
       try {
+        // Ensure auth header is present before attempting save
+        if (!axios.defaults.headers.common.Authorization) {
+          console.warn('Auto-save skipped: no auth token present.');
+          setGmailAutoStatus('');
+          return;
+        }
         await persistSettings();
         setGmailAutoStatus('saved');
         fetchEmails();
         setTimeout(() => setGmailAutoStatus(''), 5000);
       } catch (error) {
-        console.error('Gmail auto-save failed:', error);
+        const status = error?.response?.status;
+        const detail = error?.response?.data?.message || error?.response?.data || error.message;
+        console.error('Gmail auto-save failed:', status, detail);
         setGmailAutoStatus('error');
       }
     }, 1400);
@@ -181,7 +192,7 @@ export default function IntegrationsView({ apiBase }) {
               </span>
             )}
             {gmailAutoStatus === 'error' && (
-              <span className="text-xs font-medium text-red-600">Failed to save settings. please ensure you have sufficient permissions (DevAdmin/SuperAdmin) and a stable connection.</span>
+              <span className="text-xs font-medium text-red-600">Failed to save settings. please ensure you have sufficient permissions (Admin/DevAdmin/SuperAdmin) and a stable connection.</span>
             )}
             <span className="text-[10px] text-slate-400">Pauses 1.4s after you type, then saves. You can still use Save below for Shopify.</span>
           </div>

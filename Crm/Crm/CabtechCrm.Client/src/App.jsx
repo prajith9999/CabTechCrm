@@ -1922,28 +1922,8 @@ function App() {
     }
   };
 
-  if (!authReady || loading) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="flex flex-col items-center"
-        >
-          <img src="/logo.png" alt="Cabtech" className="h-12 w-auto mb-8 opacity-90" />
-          <div className="flex gap-1.5">
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                animate={{ opacity: [0.3, 1, 0.3] }}
-                transition={{ repeat: Infinity, duration: 1.5, delay: i * 0.2 }}
-                className="w-2 h-2 bg-slate-900 rounded-full"
-              />
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    );
+  if (!authReady) {
+    return null; // Silent wait for auth check
   }
 
   if (!isLoggedIn) {
