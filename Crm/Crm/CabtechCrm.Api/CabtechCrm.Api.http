@@ -1,0 +1,36 @@
+@HostAddress = http://localhost:5101/api
+
+### 1. Login (DevAdmin)
+POST {{HostAddress}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "Cabtechdev",
+    "password": "PrajithCabtech3031@"
+}
+
+### 2. Login (Admin)
+POST {{HostAddress}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "CabtechTrack",
+    "password": "CabtechDohaQatar111!@#"
+}
+
+### 3. Get Enquiries (Requires Bearer Token)
+GET {{HostAddress}}/enquiries
+Authorization: Bearer YOUR_TOKEN_HERE
+
+### 4. Get Audit Logs (DevAdmin Only)
+GET {{HostAddress}}/developer/audit-logs
+Authorization: Bearer YOUR_DEV_TOKEN_HERE
+
+### 5. Submit Help Desk Ticket
+POST {{HostAddress}}/integration/helpdesk
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN_HERE
+
+{
+    "issueText": "UI search bar is overlapping the new entry button on mobile."
+}

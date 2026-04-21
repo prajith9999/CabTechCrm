@@ -9,14 +9,12 @@ bin/
 obj/
 **/bin/
 **/obj/
-.build/
-**/.build/
+CabtechCrm.Api/_verify_build/
 
 # Logs and temp
 *.log
 *.tmp
-**/Logs/
-**/logs/
+CabtechCrm.Api/Logs/
 
 # Environment files
 .env
@@ -28,15 +26,11 @@ obj/
 .idea/
 *.user
 *.suo
-.vs/
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Project Specific
-**/_verify_build/
-**/.firebase/
-**/.firebaserc.local
-%TEMP%/
-**/%TEMP%/
+# Generated or local-only files
+CabtechCrm.Client/.firebase/
+CabtechCrm.Client/.firebaserc.local

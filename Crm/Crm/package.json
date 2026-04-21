@@ -1,0 +1,21 @@
+{
+  "name": "cabtech-crm-root",
+  "version": "1.0.0",
+  "description": "Root orchestrator for Cabtech CRM",
+  "scripts": {
+    "install:client": "cd CabtechCrm.Client && npm install",
+    "install:all": "npm run install:client",
+    "client": "cd CabtechCrm.Client && npm run dev",
+    "build": "cd CabtechCrm.Client && npm run build",
+    "build:client": "cd CabtechCrm.Client && npm run build",
+    "server": "cd CabtechCrm.Api && dotnet watch run",
+    "dev": "npx concurrently \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "firebase": "^12.12.0",
+    "git": "^0.1.5"
+  }
+}
